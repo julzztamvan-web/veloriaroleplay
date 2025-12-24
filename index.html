@@ -1,88 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Veloria Roleplay</title>
-<style>
-body {margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:#e5e7eb}
-header {background:#020617;padding:20px;text-align:center}
-header h1 {margin:0;font-size:32px;color:#38bdf8}
-nav {display:flex;flex-wrap:wrap;justify-content:center;gap:12px;background:#020617;padding:10px}
-nav a {color:#e5e7eb;text-decoration:none;padding:8px 14px;border-radius:8px;background:#020617;border:1px solid #1e293b}
-nav a:hover {background:#38bdf8;color:#020617}
-.container {padding:24px;max-width:1000px;margin:auto}
-section {margin-bottom:40px;padding:20px;border-radius:16px;background:#020617;box-shadow:0 0 10px rgba(0,0,0,.4)}
-h2 {color:#38bdf8}
-footer {text-align:center;padding:20px;background:#020617;color:#94a3b8}
-.btn {display:inline-block;margin-top:10px;padding:10px 18px;border-radius:10px;background:#22c55e;color:#020617;text-decoration:none;font-weight:bold}
-.btn:hover {background:#16a34a}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veloria Roleplay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #1a1a1a;
+            --old-paper: #f5e9d4;
+            --border-color: #8b7355;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: #333;
+            line-height: 1.6;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            border-bottom: 5px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--light-color);
+            text-shadow: 3px 3px 0 var(--accent-color);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--light-color);
+        }
+        
+        /* Navigation Styles */
+        nav {
+            background-color: var(--secondary-color);
+            border-top: 3px solid var(--border-color);
+            border-bottom: 3px solid var(--border-color);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0;
+        }
+        
+        nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav ul li:last-child a {
+            border-right: none;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Main Content Styles */
+        main {
+            min-height: 500px;
+        }
+        
+        .content-section {
+            display: none;
+            background-color: var(--old-paper);
+            padding: 30px;
+            border: 15px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/wood-frame.png') 30 stretch;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+            font-size: 1.5rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            border-radius: 3px;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Stats Box */
+        .stats-box {
+            background-color: rgba(0, 0, 0, 0.05);
+            border: 2px dashed var(--border-color);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .stats-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 5px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul li a {
+                padding: 12px 18px;
+                font-size: 0.9rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                text-align: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .content-section {
+                padding: 15px;
+                border-width: 10px;
+            }
+        }
+        
+        /* Old School Decoration */
+        .old-border {
+            border: 8px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/wood.png') 30 stretch;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 25px 0;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--accent-color);
+        }
+        
+        .info-note {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        .success-note {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        /* Tab Styles */
+        .form-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: var(--light-color);
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            margin-right: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            background-color: #d5dbdb;
+        }
+        
+        .tab-btn.active {
+            background-color: var(--old-paper);
+            position: relative;
+            top: 2px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-
-
-<header>
-<h1>Veloria Roleplay</h1>
-<p>Old School GTA SA-MP Roleplay Server</p>
-</header>
-
-
-<nav>
-<a href="#story">Character Story</a>
-<a href="#ck">Character Killed</a>
-<a href="#donate">Donate Server</a>
-<a href="#admin">Lamaran Admin</a>
-<a href="#faction">Lamaran Faction</a>
-</nav>
-
-
-<div class="container">
-
-
-<section id="story">
-<h2>📖 Character Story</h2>
-<p>Berisi cerita karakter pemain, latar belakang, tujuan hidup, dan perkembangan roleplay.</p>
-</section>
-
-
-<section id="ck">
-<h2>☠️ Character Killed (CK)</h2>
-<p>Daftar karakter yang telah melakukan CK secara resmi sesuai rules server.</p>
-</section>
-
-
-<section id="donate">
-<h2>💎 Donate Server</h2>
-<p>Dukung server Veloria Roleplay agar terus berkembang.</p>
-<a href="#" class="btn">Donate Sekarang</a>
-</section>
-
-
-<section id="admin">
-<h2>🛡️ Forum Lamaran Admin</h2>
-<p>Formulir pendaftaran admin untuk pemain yang siap menjaga kualitas roleplay.</p>
-<a href="#" class="btn">Ajukan Lamaran</a>
-</section>
-
-
-<section id="faction">
-<h2>🏛️ Forum Lamaran Faction</h2>
-<ul>
-<li>SAPD (Police Department)</li>
-<li>EMS (Emergency Medical Service)</li>
-<li>SANEWS (San Andreas News)</li>
-<li>Pedagang</li>
-</ul>
-<a href="#" class="btn">Daftar Faction</a>
-</section>
-
-
-</div>
-
-
-<footer>
-<p>© 2025 Veloria Roleplay | All Rights Reserved</p>
-</footer>
-
-
-</body>
-  </html>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Veloria Roleplay</h1>
+                <p class="subtitle">Where Stories Come to Life in the Old World</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#" class="nav-link active" data-target="character-story">Character Story</a></li>
+                <li><a href="#" class="nav-link" data-target="character-killed">Character Killed</a></li>
+                <li><a href="#" class="nav-link" data-target="recruitment-faction">Recruitment Faction</a></li>
+                <li><a href="#" class="nav-link" data-target="forum-donate">Forum Donate</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Character Story Section -->
+        <section id="character-story" class="content-section active">
+            <h2><i class="fas fa-scroll"></i> Character Story</h2>
+            <p class="info-note">Isi formulir di bawah ini untuk menambahkan karakter story baru ke database Veloria Roleplay.</p>
+            
+            <div class="form-tabs">
+                <div class="tab-btn active" data-tab="cs-form">Form Character Story</div>
+                <div class="tab-btn" data-tab="cs-list">Daftar Character Story</div>
+            </div>
+            
+            <div id="cs-form" class="tab-content active">
+                <form id="characterStoryForm">
+                    <div class="form-group">
+                        <label for="cs-name" class="required">Nama IC</label>
+                        <input type="text" id="cs-name" required placeholder="Masukkan nama
